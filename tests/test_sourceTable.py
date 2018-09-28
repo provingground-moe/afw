@@ -530,6 +530,7 @@ class SourceTableTestCase(lsst.utils.tests.TestCase):
         self.assertIn('base_SdssShape_instFlux_xx_Cov', cat.schema)
 
         self.assertNotIn('base_Blendedness_abs_flux_cinstFlux', cat.schema)
+        self.assertNotIn('base_Blendedness_abs_instFlux_child', cat.schema)
         
     def testFitsVersion2Compatibility(self):
         """Test reading of catalogs with version 2 schema
