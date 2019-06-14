@@ -32,6 +32,7 @@
 #include "lsst/afw/cameraGeom/Detector.h"
 #include "lsst/afw/image/TransmissionCurve.h"
 #include "lsst/afw/fits.h"
+#include "lsst/afw/typehandling/SimpleGenericMap.h"
 
 namespace {
 LOG_LOGGER _log = LOG_GET("afw.image.ExposureInfo");
@@ -84,7 +85,8 @@ ExposureInfo::ExposureInfo(std::shared_ptr<geom::SkyWcs const> const& wcs,
           _coaddInputs(coaddInputs),
           _apCorrMap(_cloneApCorrMap(apCorrMap)),
           _visitInfo(visitInfo),
-          _transmissionCurve(transmissionCurve) {}
+          _transmissionCurve(transmissionCurve),
+          _components(std::make_shared<typehandling::SimpleGenericMap<std::string>>()) {}
 
 ExposureInfo::ExposureInfo(ExposureInfo const& other)
         : _wcs(other._wcs),
@@ -97,7 +99,8 @@ ExposureInfo::ExposureInfo(ExposureInfo const& other)
           _coaddInputs(other._coaddInputs),
           _apCorrMap(_cloneApCorrMap(other._apCorrMap)),
           _visitInfo(other._visitInfo),
-          _transmissionCurve(other._transmissionCurve) {}
+          _transmissionCurve(other._transmissionCurve),
+          _components(other._components) {}
 
 // Delegate to copy-constructor for backwards compatibility
 ExposureInfo::ExposureInfo(ExposureInfo&& other) : ExposureInfo(other) {}
@@ -113,7 +116,8 @@ ExposureInfo::ExposureInfo(ExposureInfo const& other, bool copyMetadata)
           _coaddInputs(other._coaddInputs),
           _apCorrMap(_cloneApCorrMap(other._apCorrMap)),
           _visitInfo(other._visitInfo),
-          _transmissionCurve(other._transmissionCurve) {
+          _transmissionCurve(other._transmissionCurve),
+          _components(other._components) {
     if (copyMetadata) _metadata = _metadata->deepCopy();
 }
 
@@ -130,6 +134,7 @@ ExposureInfo& ExposureInfo::operator=(ExposureInfo const& other) {
         _apCorrMap = _cloneApCorrMap(other._apCorrMap);
         _visitInfo = other._visitInfo;
         _transmissionCurve = other._transmissionCurve;
+        _components = other._components;
     }
     return *this;
 }
