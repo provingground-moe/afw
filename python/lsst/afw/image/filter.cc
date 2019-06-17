@@ -25,6 +25,7 @@
 
 #include <cmath>
 #include "lsst/daf/base/PropertySet.h"
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/image/Filter.h"
 
 namespace py = pybind11;
@@ -37,7 +38,7 @@ namespace {
 
 using PyFilterProperty = py::class_<FilterProperty, std::shared_ptr<FilterProperty>>;
 
-using PyFilter = py::class_<Filter, std::shared_ptr<Filter>>;
+using PyFilter = py::class_<Filter, std::shared_ptr<Filter>, typehandling::Storable>;
 
 PYBIND11_MODULE(filter, mod) {
     py::module::import("lsst.daf.base");

@@ -27,6 +27,7 @@
 #include <vector>
 
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/image/ApCorrMap.h"
 #include "lsst/afw/table/io/Persistable.h"
 
@@ -38,7 +39,7 @@ namespace afw {
 namespace image {
 namespace {
 
-using PyApCorrMap = py::class_<ApCorrMap, std::shared_ptr<ApCorrMap>>;
+using PyApCorrMap = py::class_<ApCorrMap, std::shared_ptr<ApCorrMap>, typehandling::Storable>;
 
 PYBIND11_MODULE(apCorrMap, mod) {
     py::module::import("lsst.afw.table.io");

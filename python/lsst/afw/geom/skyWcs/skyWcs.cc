@@ -34,6 +34,7 @@
 #include "lsst/geom.h"
 #include "lsst/afw/geom/Endpoint.h"
 #include "lsst/afw/geom/Transform.h"
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/geom/SkyWcs.h"
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
 
@@ -79,7 +80,7 @@ PYBIND11_MODULE(skyWcs, mod) {
     mod.def("getPixelToIntermediateWorldCoords", getPixelToIntermediateWorldCoords, "wcs"_a,
             "simplify"_a = true);
 
-    py::class_<SkyWcs, std::shared_ptr<SkyWcs>> cls(mod, "SkyWcs");
+    py::class_<SkyWcs, std::shared_ptr<SkyWcs>, typehandling::Storable> cls(mod, "SkyWcs");
 
     cls.def(py::init<daf::base::PropertySet &, bool>(), "metadata"_a, "strip"_a = false);
     cls.def(py::init<ast::FrameDict const &>(), "frameDict"_a);

@@ -20,5 +20,7 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
+from lsst.afw.typehandling import Storable
+
 from .skyWcs import *
 from .skyWcsContinued import *

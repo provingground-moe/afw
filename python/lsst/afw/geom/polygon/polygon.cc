@@ -31,6 +31,7 @@
 #include "lsst/geom/Point.h"
 #include "lsst/geom/AffineTransform.h"
 #include "lsst/afw/geom/Transform.h"
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/geom/polygon/Polygon.h"
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
 
@@ -49,7 +50,7 @@ PYBIND11_MODULE(polygon, mod) {
     // Add tests for it and enable it or remove it before the final pybind11 merge.
 
     /* Module level */
-    py::class_<Polygon, std::shared_ptr<Polygon>> clsPolygon(mod, "Polygon");
+    py::class_<Polygon, std::shared_ptr<Polygon>, typehandling::Storable> clsPolygon(mod, "Polygon");
 
     pex::exceptions::python::declareException<SinglePolygonException, pex::exceptions::RuntimeError>(
             mod, "SinglePolygonException", "RuntimeError");

@@ -35,6 +35,7 @@
 #include "lsst/geom/SpherePoint.h"
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
 #include "lsst/afw/table/misc.h"
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/image/VisitInfo.h"
 
 namespace py = pybind11;
@@ -58,7 +59,7 @@ PYBIND11_MODULE(visitInfo, mod) {
     py::module::import("lsst.afw.coord.weather");
 
     /* Module level */
-    py::class_<VisitInfo, std::shared_ptr<VisitInfo>> cls(mod, "VisitInfo");
+    py::class_<VisitInfo, std::shared_ptr<VisitInfo>, typehandling::Storable> cls(mod, "VisitInfo");
 
     /* Member types and enums */
     py::enum_<RotType>(mod, "RotType")

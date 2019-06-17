@@ -29,6 +29,7 @@
 #include "lsst/geom/Point.h"
 #include "lsst/afw/image/Color.h"
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/detection/Psf.h"
 
 namespace py = pybind11;
@@ -44,7 +45,7 @@ auto const NullPoint = lsst::geom::Point2D(std::numeric_limits<double>::quiet_Na
 
 PYBIND11_MODULE(psf, mod) {
     /* Module level */
-    py::class_<Psf, std::shared_ptr<Psf>, daf::base::Citizen> cls(mod, "Psf");
+    py::class_<Psf, std::shared_ptr<Psf>, daf::base::Citizen, typehandling::Storable> cls(mod, "Psf");
 
     /* Member types and enums */
     py::enum_<Psf::ImageOwnerEnum>(cls, "ImageOwnerEnum")

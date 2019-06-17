@@ -33,6 +33,7 @@
 #include "lsst/afw/math/BoundedField.h"
 #include "lsst/afw/table/io/Persistable.h"
 #include "lsst/afw/table/io/python.h"  // for addPersistableMethods
+#include "lsst/afw/typehandling/Storable.h"
 #include "lsst/afw/image/PhotoCalib.h"
 
 namespace py = pybind11;
@@ -61,7 +62,7 @@ void declareMeasurement(py::module &mod) {
 PYBIND11_MODULE(photoCalib, mod) {
     declareMeasurement(mod);
 
-    py::class_<PhotoCalib, std::shared_ptr<PhotoCalib>> cls(mod, "PhotoCalib");
+    py::class_<PhotoCalib, std::shared_ptr<PhotoCalib>, typehandling::Storable> cls(mod, "PhotoCalib");
 
     /* Constructors */
     cls.def(py::init<>());

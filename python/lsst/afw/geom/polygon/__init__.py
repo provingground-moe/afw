@@ -22,5 +22,7 @@
 
 """lsst.afw.geom.polygon
 """
+from lsst.afw.typehandling import Storable
+
 from .polygon import *
 from .polygonContinued import *
